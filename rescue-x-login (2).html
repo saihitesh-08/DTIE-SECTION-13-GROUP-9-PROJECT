@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RESCUE-X | Disaster Response Command Center</title>
+<style>
+:root{--bg:#101b25;--panel:#172633;--line:#2c4251;--text:#edf5f7;--muted:#a5b8c3;--teal:#71e0d0;--green:#8fe0a2;--amber:#ffd16b;--red:#ff8d85}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 system-ui,-apple-system,Arial,sans-serif}button{cursor:pointer;font:inherit;font-weight:650;border:1px solid var(--line);border-radius:9px;padding:10px 12px;background:#1d303e;color:var(--text)}button:hover{filter:brightness(1.15)}.primary{background:var(--teal);color:#102a2d;border-color:var(--teal)}.app{max-width:1400px;margin:auto;padding:20px}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:16px}.brand{display:flex;gap:12px;align-items:center}.logo{display:grid;place-items:center;width:46px;height:46px;border-radius:12px;background:#20434b;color:var(--teal);font-size:25px}.eyebrow,.label{font-size:11px;letter-spacing:1px;color:var(--muted);font-weight:750}.brand h1{margin:2px 0;font-size:23px}.pill{padding:7px 10px;border:1px solid var(--line);border-radius:20px;background:#1d303e;font-size:12px}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:13px}.metric,.card{background:var(--panel);border:1px solid var(--line);border-radius:14px}.metric{padding:14px}.num{font-size:27px;font-weight:800;margin:4px 0}.muted{color:var(--muted)}.layout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(300px,.85fr);gap:13px}.card{padding:15px;margin-bottom:13px}.cardhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}.card h2{font-size:16px;margin:0}.note{font-size:12px;color:var(--muted);margin:0 0 11px}.mapwrap{overflow:hidden;border-radius:11px;background:#213a37}.map{display:block;width:100%;height:auto}.legend{display:flex;gap:13px;flex-wrap:wrap;color:var(--muted);font-size:11px;margin-top:10px}.legend span{display:flex;align-items:center;gap:5px}.key{width:9px;height:9px;border-radius:50%;display:inline-block}.cols{display:grid;grid-template-columns:1fr 1fr;gap:9px}.detail{background:#13222d;border:1px solid var(--line);border-radius:10px;padding:11px;min-width:0}.value{font-size:17px;font-weight:800;margin-top:4px;overflow-wrap:anywhere}.actions,.controls{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.wide{grid-column:1/-1}.people{display:grid;gap:7px}.person{display:flex;align-items:center;gap:9px;text-align:left;width:100%;padding:9px;background:#14232e}.person.selected{border-color:var(--teal);background:#1a333d}.avatar{display:grid;place-items:center;width:33px;height:33px;background:#2a414a;border-radius:9px;flex-shrink:0}.info{flex:1;min-width:0}.info strong,.info small{display:block}.info small{font-size:11px;color:var(--muted);overflow-wrap:anywhere}.tag{font-size:10px;padding:4px 6px;border-radius:6px;background:#3d3330;color:var(--amber);white-space:nowrap}.done{background:#1e3c30;color:var(--green)}.critical{background:#4b2c2c;color:var(--red)}.statusbox,.dispatch{background:#12212b;border:1px solid var(--line);border-radius:10px;padding:11px;margin-top:10px}.log{display:grid;gap:8px}.logitem{display:flex;gap:9px;font-size:12px}.logitem time{white-space:nowrap;color:var(--muted)}.notice{background:#292a22;border:1px solid #5a5033;border-radius:10px;padding:11px;color:#f5dda0;font-size:12px}.bar{height:6px;background:#31434b;border-radius:20px;overflow:hidden;margin-top:7px}.bar span{display:block;height:100%;background:var(--green);width:100%}.footer{text-align:center;color:var(--muted);font-size:11px;padding:8px}.extraStatus{margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:8px}.extraBox{background:#13222d;border:1px solid var(--line);border-radius:10px;padding:10px}.extraBox strong{display:block;margin-top:3px}.gasSafe{color:var(--green)}.gasWarn{color:var(--red)}.supplyReady{color:var(--teal)}.spinning{transform-box:fill-box;transform-origin:center;animation:spin .22s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media(max-width:850px){.layout{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}}@media(max-width:450px){.app{padding:10px}.brand h1{font-size:18px}.card{padding:11px}.value{font-size:14px}}
+</style>
+<style>
+#loginScreen{
+  position:fixed; inset:0; z-index:9999;
+  display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg,#07111f,#0b1728 55%,#10233a);
+}
+.loginCard{
+  width:min(420px,calc(100% - 36px));
+  padding:32px;
+  border:1px solid rgba(56,189,248,.25);
+  border-radius:18px;
+  background:rgba(10,22,38,.96);
+  box-shadow:0 24px 70px rgba(0,0,0,.5);
+}
+.loginBrand{font-size:28px;font-weight:900;letter-spacing:.8px;color:#e6f7ff}
+.loginSub{margin:7px 0 24px;color:#91a6bb;font-size:13px}
+.loginField{margin-bottom:15px}
+.loginField label{display:block;margin-bottom:7px;color:#b8c9d8;font-size:12px;font-weight:700}
+.loginField input{
+  width:100%; box-sizing:border-box; padding:12px 13px;
+  border-radius:10px; border:1px solid #294057;
+  background:#07111d; color:#eef8ff; outline:none;
+}
+.loginField input:focus{border-color:#35b8ff;box-shadow:0 0 0 3px rgba(53,184,255,.1)}
+#loginBtn{
+  width:100%; padding:12px; border:0; border-radius:10px;
+  background:#16a8e8; color:#03111b; font-weight:900; cursor:pointer;
+}
+#loginError{min-height:18px;margin-top:12px;color:#ff7b7b;font-size:12px;text-align:center}
+.loginHint{margin-top:18px;color:#71879b;font-size:11px;text-align:center}
+body.loggedOut{overflow:hidden}
+</style>
+</head><body class="loggedOut">
+
+<div id="loginScreen">
+  <div class="loginCard">
+    <div class="loginBrand">RESCUE-X</div>
+    <div class="loginSub">Disaster Response Command Center · Secure Login</div>
+
+    <form id="loginForm">
+      <div class="loginField">
+        <label for="loginUsername">USERNAME</label>
+        <input id="loginUsername" type="text" autocomplete="username" placeholder="Enter username" required>
+      </div>
+
+      <div class="loginField">
+        <label for="loginPassword">PASSWORD</label>
+        <input id="loginPassword" type="password" autocomplete="current-password" placeholder="Enter password" required>
+      </div>
+
+      <button id="loginBtn" type="submit">LOGIN TO COMMAND CENTER</button>
+      <div id="loginError"></div>
+    </form>
+
+    <div class="loginHint">Demo credentials: admin / rescue123</div>
+  </div>
+</div>
+<div class="app">
+<header class="top"><div class="brand"><div class="logo">⌁</div><div><div class="eyebrow">DISASTER RESPONSE NETWORK</div><h1>RESCUE-X Command Center</h1><div class="muted">Landslide incident · Search sector A-01</div></div></div><span class="pill">🟢 SIMULATION ONLINE</span></header>
+<section class="metrics"><div class="metric"><div class="label">People located</div><div class="num" id="found">0</div><div class="muted">Thermal scan results</div></div><div class="metric"><div class="label">Marked rescued</div><div class="num" id="rescued">0</div><div class="muted">Demo status only</div></div><div class="metric"><div class="label">Awaiting rescue</div><div class="num" id="awaiting">0</div><div class="muted">Located survivors</div></div><div class="metric"><div class="label">Drone battery</div><div class="num"><span id="battery">100</span>%</div><div class="bar"><span id="batterybar"></span></div></div></section>
+<div class="layout"><main>
+<section class="card"><div class="cardhead"><h2>Disaster site map</h2><span class="pill" id="gpsStatus">⌖ GPS ready</span></div><p class="note">Click a numbered person marker to select them. Coordinates are simulated demonstration data.</p><div class="mapwrap"><svg class="map" id="map" viewBox="0 0 640 400" aria-label="Illustrated landslide rescue map"><defs><linearGradient id="sky"><stop stop-color="#334f56"/><stop offset="1" stop-color="#1e3537"/></linearGradient></defs><rect width="640" height="400" fill="url(#sky)"/><path d="M0 150L85 42 146 105 225 22 305 132 384 47 457 125 536 35 640 117V400H0Z" fill="#536f69"/><path d="M0 201L86 130 156 180 246 111 321 192 411 121 499 185 575 127 640 165V400H0Z" fill="#38594e"/><path d="M0 265L105 207 178 248 278 193 370 258 475 199 563 250 640 218V400H0Z" fill="#52654a"/><path d="M-20 300Q100 244 180 294T350 291T660 246" stroke="#b9a58b" stroke-width="37" fill="none"/><path d="M-20 300Q100 244 180 294T350 291T660 246" stroke="#625e52" stroke-width="3" stroke-dasharray="16 12" fill="none"/><path d="M34 154L105 117 148 168 192 143 227 185 156 220 102 195Z" fill="#826a55"/><g transform="translate(475 212)"><path d="M-54 0L0 -40 56 0Z" fill="#ac6e50"/><rect x="-45" width="90" height="58" fill="#d3c5a4"/><rect x="-10" y="28" width="22" height="30" fill="#6d604e"/></g>
+
+<circle cx="390" cy="265" r="34" fill="#ff8d85" opacity=".10" stroke="#ff8d85" stroke-width="2" stroke-dasharray="6 6"/>
+<g id="gasRoadWarning" transform="translate(390 265)">
+  <path d="M0 0 L-34 -26" stroke="#ff8d85" stroke-width="4" stroke-linecap="round"/>
+  <path d="M-34 -26 L-20 -25 L-28 -14" fill="#ff8d85"/>
+  <rect x="-78" y="-62" width="156" height="38" rx="7" fill="#4b2c2c" stroke="#ff8d85" stroke-width="2"/>
+  <text x="0" y="-43" text-anchor="middle" font-size="12" fill="#fff" font-weight="900">⚠ GAS — DO NOT GO</text>
+  <text x="0" y="-29" text-anchor="middle" font-size="9" fill="#ffb0a8" font-weight="700">RESCUE ROUTE CLOSED</text>
+</g>
+<g id="peopleLayer"></g><path id="droneLink" stroke="#79e6f2" stroke-width="2" stroke-dasharray="7 7" opacity=".85"/><g id="droneIcon" transform="translate(320 82)"><circle r="28" fill="#5fd5e5" opacity=".12"/><path d="M-29 -14L29 14M-29 14L29 -14" stroke="#e8f4f7" stroke-width="6" stroke-linecap="round"/><rect x="-15" y="-11" width="30" height="22" rx="7" fill="#dbe9ed" stroke="#63818a" stroke-width="2"/><circle r="5" fill="#48d7e9"/><g id="props" fill="#a6c1c9"><ellipse cx="-29" cy="-14" rx="15" ry="3"/><ellipse cx="29" cy="14" rx="15" ry="3"/><ellipse cx="-29" cy="14" rx="15" ry="3"/><ellipse cx="29" cy="-14" rx="15" ry="3"/></g><circle id="led" cy="19" r="5" fill="#6c7e80"/></g><g id="scan" opacity="0"><rect width="640" height="400" fill="#0b2025" opacity=".23"/><path d="M0 90H640M0 170H640M0 250H640M0 330H640M160 0V400M320 0V400M480 0V400" stroke="#66e6ef" opacity=".5"/><path d="M0 60H640" stroke="#6ae7f3" stroke-width="3"/></g><text id="mapCaption" x="18" y="28" font-size="13" fill="#f2f8f6" font-weight="700">SEARCH ZONE A-01 · THERMAL CAMERA STANDBY</text><text x="18" y="380" font-size="11" fill="#e0eee5">ILLUSTRATIVE MAP · NOT FOR REAL-WORLD NAVIGATION</text></svg></div><div class="legend"><span><i class="key" style="background:#f0eee1"></i>Unscanned</span><span><i class="key" style="background:#ffd166"></i>Located</span><span><i class="key" style="background:#70e0a1"></i>Rescued</span><span><i class="key" style="background:#66dbea"></i>Drone</span></div></section>
+<section class="card"><div class="cardhead"><h2>Selected person & GPS coordinates</h2><span id="personStatus" class="tag">UNSCANNED</span></div><div class="cols"><div class="detail"><div class="label">Person / zone</div><div class="value" id="pname">Person 01</div><div class="muted" id="zone">Damaged house</div></div><div class="detail"><div class="label">Priority</div><div class="value" id="priority">Critical</div><div class="muted">Illustrative triage level</div></div><div class="detail"><div class="label">Latitude</div><div class="value" id="lat">Pending scan</div></div><div class="detail"><div class="label">Longitude</div><div class="value" id="lon">Pending scan</div></div></div><div class="actions"><button class="primary" id="copy">Copy coordinate report</button><button id="locate">Locate selected person</button><button class="wide" id="mark">Mark as rescued</button></div></section>
+<section class="card"><div class="cardhead"><h2>Rescue-team dispatch</h2><span class="pill" id="dispatchCount">0 notifications</span></div><p class="note">Creates a simulated dispatch notification. It does not contact a real rescue team.</p><button class="primary" id="dispatchBtn">Send selected location to rescue team</button><div id="dispatchList" style="margin-top:10px" class="muted">No dispatch notifications yet.</div></section>
+</main><aside>
+<section class="card"><div class="cardhead"><h2>Mission control</h2><span class="pill" id="flight">STANDBY</span></div><p class="note">Test each system or run the complete demonstration.</p><button class="primary wide" id="mission" style="width:100%;margin-bottom:8px">▶ Start full rescue mission</button><div class="controls"><button id="takeoff">↗ Take off / motors on</button><button id="land">↓ Land / motors off</button><button id="thermal">◎ Thermal camera scan</button><button id="gps">⌖ Acquire GPS</button><button id="alert">⚠ Trigger rescue alert</button><button id="gasSniffer">☁ Gas sniffer</button><button id="foodOption">🚁 Deliver food</button><button id="reset">↻ Reset simulation</button></div><div class="extraStatus">
+<div class="extraBox"><div class="label">Gas sniffer</div><strong id="gasResult" class="gasSafe">Not checked</strong><div class="muted" id="gasDetail">Check route for harmful gas</div></div>
+<div class="extraBox warning" style="grid-column:1/-1"><div class="label">🚨 RESCUE ROUTE WARNING</div><strong id="routeWarning" class="gasWarn">GAS SNIFFER: DO NOT GO THIS WAY</strong><div class="muted">Rescue teams must avoid the detected gas route and use another path.</div></div>
+<div class="extraBox"><div class="label">Food delivery drone</div><strong id="foodResult" class="supplyReady">READY</strong><div class="muted" id="foodDetail">Drone can deliver food + water</div></div>
+</div><div class="statusbox"><div class="label">Mission status</div><strong id="missionStatus" style="display:block;margin-top:4px">Ready for deployment</strong><div class="muted" id="cameraStatus" style="margin-top:5px">Thermal camera: standby</div></div><div style="margin-top:12px"><div class="label" style="text-align:center;margin-bottom:8px">Virtual drone movement</div><div class="controls" style="max-width:260px;margin:auto"><span></span><button data-move="up">↑ Forward</button><span></span><button data-move="left">← Left</button><button data-move="down">↓ Back</button><button data-move="right">Right →</button></div></div></section>
+<section class="card"><div class="cardhead"><h2>People needing assistance</h2><span class="muted">7 people</span></div><p class="note">Choose a person to view their location.</p><div class="people" id="peopleList"></div></section><section class="card"><div class="cardhead"><h2>Activity log</h2><span class="muted">Latest events</span></div><div class="log" id="log"></div></section><div class="notice">DEMO ONLY: people, map, coordinates, thermal detections and dispatch notifications are simulated. No live GPS, drone, or emergency-service connection is present.</div>
+</aside></div><div class="muted" style="text-align:center;font-size:11px;padding:14px">RESCUE-X · Student prototype · Verify all coordinates before real-world use.</div></div>
+
+<script>
+(function(){
+  const loginForm=document.getElementById('loginForm');
+  const loginScreen=document.getElementById('loginScreen');
+  const loginError=document.getElementById('loginError');
+
+  loginForm.addEventListener('submit',function(e){
+    e.preventDefault();
+    const username=document.getElementById('loginUsername').value.trim();
+    const password=document.getElementById('loginPassword').value;
+
+    if(username==='admin' && password==='rescue123'){
+      loginScreen.style.display='none';
+      document.body.classList.remove('loggedOut');
+      loginError.textContent='';
+    }else{
+      loginError.textContent='Invalid credentials. Please try again.';
+    }
+  });
+})();
+</script>
+
+<script>
+(()=>{const people=[{name:'Person 01',lat:'17.3850',lon:'78.4867',zone:'Damaged house',priority:'Critical',x:475,y:205},{name:'Person 02',lat:'17.3854',lon:'78.4873',zone:'Blocked road',priority:'High',x:300,y:280},{name:'Person 03',lat:'17.3846',lon:'78.4859',zone:'North hillside',priority:'Critical',x:135,y:170},{name:'Person 04',lat:'17.3861',lon:'78.4880',zone:'Village shelter',priority:'Medium',x:540,y:150},{name:'Person 05',lat:'17.3842',lon:'78.4871',zone:'River path',priority:'High',x:350,y:325},{name:'Person 06',lat:'17.3865',lon:'78.4848',zone:'West search zone',priority:'High',x:65,y:250},{name:'Person 07',lat:'17.3857',lon:'78.4861',zone:'South search zone',priority:'Medium',x:250,y:235}];let selected=0,detected=people.map(()=>false),rescued=people.map(()=>false),flying=false,camera=false,gpsOn=true,battery=100,dispatches=[],dx=320,dy=82,missionTimeouts=[],gasChecked=false,gasHarmful=false,foodRequested=false;const $=id=>document.getElementById(id);function log(msg){let d=document.createElement('div');d.className='logitem';let t=document.createElement('time');t.textContent=new Date().toLocaleTimeString();let s=document.createElement('span');s.textContent=msg;d.append(t,s);$('log').prepend(d);while($('log').children.length>7)$('log').lastChild.remove()}function render(){let p=people[selected];$('found').textContent=detected.filter(Boolean).length;$('rescued').textContent=rescued.filter(Boolean).length;$('awaiting').textContent=detected.filter((v,i)=>v&&!rescued[i]).length;$('battery').textContent=battery;$('batterybar').style.width=battery+'%';$('pname').textContent=p.name;$('zone').textContent=p.zone;$('priority').textContent=p.priority;$('lat').textContent=detected[selected]?p.lat:'Pending scan';$('lon').textContent=detected[selected]?p.lon:'Pending scan';$('personStatus').textContent=rescued[selected]?'RESCUED':detected[selected]?'LOCATED':'UNSCANNED';$('personStatus').className='tag '+(rescued[selected]?'done':p.priority==='Critical'?'critical':'');$('flight').textContent=flying?'IN FLIGHT':'STANDBY';$('missionStatus').textContent=flying?'Drone searching':detected.every(Boolean)?'All people located':'Ready for deployment';$('cameraStatus').textContent='Thermal camera: '+(camera?'ACTIVE':'standby');$('gpsStatus').textContent=gpsOn?'⌖ GPS ready':'⌖ GPS disabled';$('dispatchCount').textContent=dispatches.length+' notification'+(dispatches.length===1?'':'s');$('dispatchList').innerHTML=dispatches.length?dispatches.map(d=>`<div class="dispatch"><strong>${d.name} · Location report</strong><div class="muted">${d.lat}° N, ${d.lon}° E</div><span class="tag done">Created in simulation</span></div>`).join(''):'<div class="muted">No dispatch notifications yet.</div>';$('routeWarning').textContent=gasHarmful?'GAS SNIFFER: DO NOT GO THIS WAY':'GAS SNIFFER: ROUTE CLEAR';$('gasResult').textContent=gasChecked?(gasHarmful?'Harmful gas detected':'No harmful gas detected'):'Not checked';$('gasResult').className=gasChecked?(gasHarmful?'gasWarn':'gasSafe'):'gasSafe';$('gasDetail').textContent=gasChecked?(gasHarmful?'RESCUE TEAM: DO NOT GO THIS WAY':'Rescuers: route appears clear'):'Check route for harmful gas';$('foodResult').textContent=foodRequested?'DELIVERING':'READY';$('foodDetail').textContent=foodRequested?'Drone delivering food + water':'Drone can deliver food + water';$('peopleList').innerHTML=people.map((p,i)=>`<button class="person ${selected===i?'selected':''}" data-person="${i}"><span class="avatar">${rescued[i]?'✓':detected[i]?'●':'○'}</span><span class="info"><strong>${p.name} · ${p.zone}</strong><small>${detected[i]?p.lat+', '+p.lon:'Awaiting scan'}</small></span><span class="tag ${rescued[i]?'done':p.priority==='Critical'?'critical':''}">${rescued[i]?'RESCUED':p.priority.toUpperCase()}</span></button>`).join('');document.querySelectorAll('[data-person]').forEach(b=>b.onclick=()=>{selected=+b.dataset.person;render();log('Selected '+people[selected].name+'.')});$('peopleLayer').innerHTML=people.map((p,i)=>`<g data-marker="${i}" style="cursor:pointer"><circle cx="${p.x}" cy="${p.y}" r="${detected[i]&&!rescued[i]?17:12}" fill="${rescued[i]?'#70e0a1':detected[i]?'#ffd166':'#f0eee1'}" opacity="${detected[i]&&!rescued[i]?'.22':'1'}"/><circle cx="${p.x}" cy="${p.y}" r="${selected===i?9:6}" fill="${rescued[i]?'#70e0a1':detected[i]?'#ffd166':'#f0eee1'}" stroke="${selected===i?'#fff':'#253a35'}" stroke-width="${selected===i?3:1.5}"/><text x="${p.x}" y="${p.y-15}" font-size="12" fill="#fff" text-anchor="middle" font-weight="800">${i+1}</text></g>`).join('');document.querySelectorAll('[data-marker]').forEach(g=>g.onclick=()=>{selected=+g.dataset.marker;render()});$('droneIcon').setAttribute('transform',`translate(${dx} ${dy})`);$('props').setAttribute('class',flying?'spinning':'');$('led').setAttribute('fill',flying?'#8fe0a2':detected[selected]?'#ffd166':'#6c7e80');$('droneLink').setAttribute('d',`M${dx} ${dy} L${people[selected].x} ${people[selected].y}`);$('scan').setAttribute('opacity',camera?'1':'0');$('mapCaption').textContent='SEARCH ZONE A-01 · THERMAL CAMERA '+(camera?'ACTIVE':'STANDBY')}
+function scan(){if(!flying)flying=true;camera=true;gpsOn=true;detected[selected]=true;battery=Math.max(0,battery-4);log('Thermal scan located '+people[selected].name+' at '+people[selected].lat+', '+people[selected].lon+' (simulated).');render()}function locate(){if(!detected[selected]){scan()}else{dx=people[selected].x;dy=Math.max(45,people[selected].y-45);flying=true;log('Virtual drone moved near '+people[selected].name+'.');render()}}function dispatch(){if(!detected[selected]){log('Locate this person before dispatching coordinates.');return}dispatches.unshift({...people[selected]});dispatches=dispatches.slice(0,8);log('Simulated dispatch report created for '+people[selected].name+'. No real team contacted.');render()}function gasSniffer(){
+  gasChecked=true;
+  gasHarmful=true;
+  log(gasHarmful?'Gas sniffer: HARMFUL GAS DETECTED. Rescue teams are warned NOT to go this way (simulated).':'Gas sniffer: route clear (simulated).');
+  render();
+}
+function foodOption(){
+  foodRequested=true;
+  log('Food-supply drone dispatched to deliver food and water to '+people[selected].name+' (simulated).');
+  render();
+  setTimeout(()=>{
+    foodRequested=false;
+    log('Food-supply drone delivered food and water to '+people[selected].name+' (simulated).');
+    render();
+  },3000);
+}
+function stopTimers(){missionTimeouts.forEach(clearTimeout);missionTimeouts=[]}function reset(){stopTimers();selected=0;detected=people.map(()=>false);rescued=people.map(()=>false);flying=false;camera=false;gpsOn=true;battery=100;dispatches=[];dx=320;dy=82;gasChecked=false;gasHarmful=false;foodRequested=false;$('mission').textContent='▶ Start full rescue mission';$('log').innerHTML='';log('Command center reset. Ready for a new simulated incident.');render()}$('gasSniffer').onclick=gasSniffer;$('foodOption').onclick=foodOption;$('takeoff').onclick=()=>{flying=true;log('Virtual drone launched; propellers spinning.');render()};$('land').onclick=()=>{stopTimers();flying=false;$('mission').textContent='▶ Start full rescue mission';log('Virtual drone landed; motors stopped.');render()};$('thermal').onclick=scan;$('gps').onclick=()=>{gpsOn=true;log('Simulated GPS receiver acquired location data.');render()};$('alert').onclick=dispatch;$('reset').onclick=reset;$('locate').onclick=locate;$('mark').onclick=()=>{if(!detected[selected]){log('Locate this person before marking them rescued.');return}rescued[selected]=true;log(people[selected].name+' marked rescued in this demo.');render()};$('dispatchBtn').onclick=dispatch;$('copy').onclick=async()=>{let p=people[selected],report=`RESCUE-X DEMO REPORT\nPerson: ${p.name}\nZone: ${p.zone}\nLatitude: ${p.lat}\nLongitude: ${p.lon}\nStatus: ${rescued[selected]?'Rescued':detected[selected]?'Located':'Unscanned'}\nSIMULATED COORDINATES`;try{await navigator.clipboard.writeText(report);log('Coordinate report copied to clipboard.')}catch(e){let ta=document.createElement('textarea');ta.value=report;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();log('Coordinate report copied.') }};$('mission').onclick=()=>{if(missionTimeouts.length){stopTimers();flying=false;$('mission').textContent='▶ Start full rescue mission';log('Automatic mission stopped.');render();return}flying=true;$('mission').textContent='■ Stop automatic mission';log('Automatic rescue mission started.');render();let steps=[()=>{gpsOn=true;log('Simulated GPS lock acquired.');render()},()=>{camera=true;log('Thermal camera scanning search zone.');render()},()=>{detected=people.map(()=>true);battery=Math.max(0,battery-8);log('Sweep complete: six simulated people located.');render()},()=>{dispatches.unshift(...people);dispatches=dispatches.slice(0,8);log('Simulated coordinate reports added to dispatch dashboard.');render()},()=>{flying=false;$('mission').textContent='↻ Run mission again';missionTimeouts=[];log('Search complete. Virtual drone landed safely.');render()}];[2000,4000,6000,8000,10000].forEach((delay,i)=>missionTimeouts.push(setTimeout(()=>steps[i](),delay)))};document.querySelectorAll('[data-move]').forEach(b=>b.onclick=()=>{let step=18;let dir=b.dataset.move;if(dir==='up')dy-=step;if(dir==='down')dy+=step;if(dir==='left')dx-=step;if(dir==='right')dx+=step;dx=Math.max(35,Math.min(605,dx));dy=Math.max(45,Math.min(355,dy));flying=true;log('Virtual drone moved '+dir+'.');render()});render();log('Command center online. Landslide incident simulated.');})();
+</script></body></html>
